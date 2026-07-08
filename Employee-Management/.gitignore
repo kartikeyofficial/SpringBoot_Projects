@@ -31,4 +31,4 @@ build/
 
 ### VS Code ###
 .vscode/
-Employee-Management/src/main/resources
+./src/main/resources/application.properties
