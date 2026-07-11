@@ -16,6 +16,6 @@ public class EmployeeManagementApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 		userService.saveUser("Kartikey");
-
+		System.out.println("User Enter Succesfully!");
 	}
 }
