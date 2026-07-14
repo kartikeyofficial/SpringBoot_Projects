@@ -6,7 +6,9 @@ import tools.jackson.core.type.TypeReference;
 import tools.jackson.databind.ObjectMapper;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
 
 public class UserBookingService {
     private User user;
@@ -16,12 +18,16 @@ public class UserBookingService {
 
     private static final String USER_PATH="../LocalDB/users.json";
 
-    public UserBookingService(User user){
+    public UserBookingService(User user) throws IOException {
           this.user = user;
           File users = new File(USER_PATH);
-          userList = objectMapper.readValue(users, new TypeReference<List<User>>() {
+          userList = objectMapper.readValue(users, new TypeReference<List<user>>() {});
+    }
 
-          });
+    public Boolean loginUser(){
+        Optional<User> foundUser = userList.stream().filter(user1 -> {
+            return user1.getName().equals(user.getName()) && UserService
+        })
     }
 
 
