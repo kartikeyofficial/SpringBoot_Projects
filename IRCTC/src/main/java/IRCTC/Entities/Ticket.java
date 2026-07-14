@@ -69,8 +69,8 @@ public class Ticket {
     }
 
     public String getTicketInfo(){
-        return String.format("Ticket Id is: %s \n" +
-                "User Id is: %s \n" +
+        return String.format("Ticket Id: %s \n" +
+                "User Id: %s \n" +
                 "Departure Station: %s \n" +
                 "Destination Station: %s \n" +
                 "Date: %s \n" +
