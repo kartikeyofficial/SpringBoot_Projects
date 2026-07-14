@@ -1,7 +1,6 @@
 package IRCTC.Service;
 
-import IRCTC.Entities.user;
-import org.apache.catalina.User;
+import IRCTC.Entities.User;
 import tools.jackson.core.type.TypeReference;
 import tools.jackson.databind.ObjectMapper;
 
@@ -13,7 +12,7 @@ import java.util.Optional;
 public class UserBookingService {
     private User user;
 
-    private  List<user> userList;
+    private  List<User> userList;
     private ObjectMapper objectMapper = new ObjectMapper();
 
     private static final String USER_PATH="../LocalDB/users.json";
@@ -21,13 +20,13 @@ public class UserBookingService {
     public UserBookingService(User user) throws IOException {
           this.user = user;
           File users = new File(USER_PATH);
-          userList = objectMapper.readValue(users, new TypeReference<List<user>>() {});
+          userList = objectMapper.readValue(users, new TypeReference<List<User>>() {});
     }
 
     public Boolean loginUser(){
         Optional<User> foundUser = userList.stream().filter(user1 -> {
-            return user1.getName().equals(user.getName()) && UserService
-        })
+            return user1.getName().equals(user.getName()) && UserServiceUtil.checkPassword(user.getPassword(),user1)
+        }).findFirst();
     }
 
 
