@@ -1,5 +1,6 @@
 package IRCTC.Service;
 
+import IRCTC.Entities.Train;
 import IRCTC.Entities.User;
 import IRCTC.util.UserServiceUtil;
 import org.springframework.cglib.proxy.NoOp;
@@ -8,6 +9,7 @@ import tools.jackson.databind.ObjectMapper;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -53,6 +55,14 @@ public class UserBookingService {
     }
     public void fetchTicket(){
         user.printTickets();
+    }
+    public List<Train> getTrains(String source,String destination){
+        try {
+            TrainService trainService = new TrainService();
+            return trainService.searchTrains(source,destination);
+        }catch (IOException ex){
+            return new ArrayList<>();
+        }
     }
 
 

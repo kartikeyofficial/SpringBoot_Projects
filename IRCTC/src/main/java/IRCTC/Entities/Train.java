@@ -1,6 +1,5 @@
 package IRCTC.Entities;
 
-import java.sql.Time;
 import java.util.List;
 import java.util.Map;
 
@@ -9,15 +8,15 @@ public class Train {
     private String trainNo;
     private List<List<Integer>> seats;
     private Map<String, String> stationTime;
-    private List<String> stationList;
+    private List<String> stations;
 
 
-    public Train(String trainId, String trainNo, List<List<Integer>> seats, Map<String, String> stationTime, List<String> stationList) {
+    public Train(String trainId, String trainNo, List<List<Integer>> seats, Map<String, String> stationTime, List<String> stations) {
         this.trainId = trainId;
         this.trainNo = trainNo;
         this.seats = seats;
         this.stationTime = stationTime;
-        this.stationList = stationList;
+        this.stations = stations;
     }
 
 
@@ -53,12 +52,12 @@ public class Train {
         this.stationTime = stationTime;
     }
 
-    public List<String> getStationList() {
-        return stationList;
+    public List<String> getStations() {
+        return stations;
     }
 
-    public void setStationList(List<String> stationList) {
-        this.stationList = stationList;
+    public void setStations(List<String> stationList) {
+        this.stations = stations;
     }
     public String getTrainInfo(){
         return String.format("Train ID: %s Train No: %s",trainId,trainNo);

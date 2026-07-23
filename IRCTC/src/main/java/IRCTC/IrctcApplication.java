@@ -1,5 +1,7 @@
 package IRCTC;
-import java.util.UUID;
+import java.util.*;
+
+import IRCTC.Entities.Train;
 import IRCTC.Entities.User;
 import IRCTC.Service.UserBookingService;
 import IRCTC.util.UserServiceUtil;
@@ -8,10 +10,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.io.IOException;
 import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Scanner;
 import java.util.function.Predicate;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
@@ -69,8 +67,25 @@ public class IrctcApplication {
 					break;
 				}
 				case 3:{
-					System.out.println("\nFetch Your Ticket Bookings");
+					System.out.print("\nFetch Your Ticket Bookings");
 					userBookingService.fetchTicket();
+					break;
+				}
+				case 4: {
+					System.out.print("\nType Your Source Station: ");
+					String source = input.next();
+					System.out.print("\nType Your Destination Station: ");
+					String destination = input.next();
+					List<Train> trains = userBookingService.getTrains(source, destination);
+					int index = 1;
+					for (Train t: trains){
+						System.out.println(index+" Train id: "+t.getTrainId());
+						for (Map.Entry<String,String> entry: t.getStationTime().entrySet()){
+							System.out.println("Station: "+entry.getKey()+" Time: "+entry.getValue());
+						}
+					}
+					System.out.print("\nSelect a Train by Typing 1,2,3,...: ");
+					trainSelectedForBooking = trains.get(input.nextInt());
 					break;
 				}
 
