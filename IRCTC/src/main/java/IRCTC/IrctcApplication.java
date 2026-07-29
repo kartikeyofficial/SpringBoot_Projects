@@ -88,6 +88,10 @@ public class IrctcApplication {
 					trainSelectedForBooking = trains.get(input.nextInt());
 					break;
 				}
+				case 5: {
+					System.out.print("\nSelect a Seat out of These Seats: ");
+					List<List<Integer>> seats = userBookingService.fetchSeats(trainSelectedForBooking);
+				}
 
 
 			}
