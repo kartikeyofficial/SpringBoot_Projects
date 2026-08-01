@@ -39,8 +39,9 @@ public class IrctcApplication {
 			System.out.println("5. Book a Seat");
 			System.out.println("6. Cancel my Booking");
 			System.out.println("7. Exit the App");
-
+			System.out.print("\nSelect The Option Above Given: ");
 			option = input.nextInt();
+			Train trainSelectedForBooking = new Train();
 			switch (option){
 				case 1:{
 					System.out.print("\nEnter the Username to SignUp: ");
@@ -68,7 +69,7 @@ public class IrctcApplication {
 				}
 				case 3:{
 					System.out.print("\nFetch Your Ticket Bookings");
-					userBookingService.fetchTicket();
+					userBookingService.fetchBookings();
 					break;
 				}
 				case 4: {
@@ -91,7 +92,43 @@ public class IrctcApplication {
 				case 5: {
 					System.out.print("\nSelect a Seat out of These Seats: ");
 					List<List<Integer>> seats = userBookingService.fetchSeats(trainSelectedForBooking);
+					for(List<Integer> row: seats){
+						for (Integer val: row){
+							System.out.print(val+" ");
+						}
+						System.out.println();
+					}
+					System.out.println("Select the seat by Typing the Row and Column");
+					System.out.print("Enter the Row: ");
+					int row = input.nextInt();
+					System.out.print("Enter the Column: ");
+					int col = input.nextInt();
+					System.out.println("Booking Your Seat....");
+					Boolean booked = userBookingService.bookTrainSeats(trainSelectedForBooking, row, col);
+					if (booked.equals(Boolean.TRUE)){
+						System.out.println("Booked! Enjoy Your Journey");
+					}
+					else {
+						System.out.println("Can't Book this Seat!");
+					}
+					break;
 				}
+				case 6:{
+					System.out.println("Welcome to Ticket Cancellation\n");
+					System.out.print("Enter Your Ticket Id: ");
+					String ticketId = input.next();
+					boolean cancel =userBookingService.cancelBooking(ticketId);
+					if (cancel){
+						System.out.println("Your Ticket TicketId no. "+ticketId+" is Cancelled Successfully!");
+					}else {
+						System.out.println("Ticket is Not Cancelled!");
+					}
+					break;
+				}
+                default:{
+					break;
+				}
+
 
 
 			}

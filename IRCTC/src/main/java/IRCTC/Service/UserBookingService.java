@@ -1,10 +1,8 @@
 package IRCTC.Service;
 
-import IRCTC.Entities.Ticket;
 import IRCTC.Entities.Train;
 import IRCTC.Entities.User;
 import IRCTC.util.UserServiceUtil;
-import org.springframework.cglib.proxy.NoOp;
 import tools.jackson.core.type.TypeReference;
 import tools.jackson.databind.ObjectMapper;
 
@@ -21,18 +19,18 @@ public class UserBookingService {
     private  List<User> userList;
     private ObjectMapper objectMapper = new ObjectMapper();
 
-    private static final String USER_PATH="../LocalDB/users.json";
+    private static final String USER_FILE_PATH="src/main/java/IRCTC/LocalDB/users.json";
 
-    public UserBookingService(User user1) throws IOException {
-          this.user = user1;
-          loadUsers();
+    public UserBookingService(User user) throws IOException {
+          this.user = user;
+          loadUsersListFromFile();
     }
     public UserBookingService() throws IOException{
-        loadUsers();
+        loadUsersListFromFile();
+       ;
     }
-    public List<User> loadUsers() throws IOException{
-        File users = new File(USER_PATH);
-        return objectMapper.readValue(users, new TypeReference<List<User>>() {});
+    public void loadUsersListFromFile() throws IOException{
+        userList = objectMapper.readValue(new File(USER_FILE_PATH), new TypeReference<List<User>>() {});
     }
 
     public Boolean loginUser(){
@@ -52,12 +50,12 @@ public class UserBookingService {
     }
 
     private void saveUserListToFile() throws IOException{
-        File usersFile= new File(USER_PATH);
+        File usersFile= new File(USER_FILE_PATH);
         objectMapper.writeValue(usersFile,userList);
     }
 
 
-    public void fetchBooking(){
+    public void fetchBookings(){
         Optional<User> userFetched = userList.stream().filter(user1 -> {
             return user1.getName().equals(user.getName()) && UserServiceUtil.checkPassword(user.getPassword(), user1.getHashPassword());
         }).findFirst();
