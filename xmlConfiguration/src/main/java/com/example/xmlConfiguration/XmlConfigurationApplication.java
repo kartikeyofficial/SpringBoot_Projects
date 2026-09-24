@@ -11,20 +11,20 @@ public class XmlConfigurationApplication {
 
 		ApplicationContext context = new ClassPathXmlApplicationContext("beans.xml");
 		// Get bean By id/name
-//		OrderService order1 =(OrderService) context.getBean("orderService");
-//		order1.placeOrder();
+		OrderService order1 =(OrderService) context.getBean("orderService");
+		order1.placeOrder();
 
 		// get bean By Type
 //		OrderService order = context.getBean(OrderService.class);
 //		order.placeOrder();
 
 		// get bean by Both id/name and type
-		OrderService order2 = context.getBean("orderService", OrderService.class);
-		order2.placeOrder();
+//		OrderService order2 = context.getBean("orderService", OrderService.class);
+//		order2.placeOrder();
 
 
-		PaymentService payment =(PaymentService) context.getBean("paymentService");
-		payment.pay();
+//		PaymentService payment =(PaymentService) context.getBean("paymentService");
+//		payment.pay();
 
 
 	}

@@ -5,8 +5,15 @@
         http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
     <!-- bean definitions here -->
-    <bean  id = "orderService" name="orderServiceBean" class="com.example.xmlConfiguration.OrderService"/>
+    <bean id="paymentService" class="com.example.xmlConfiguration.PaymentService">
+        <constructor-arg name="Type" value="UPI"/>
+        <constructor-arg name="retryCount" value="4"/>
+
+    </bean>
+    <bean  id = "orderService" class="com.example.xmlConfiguration.OrderService">
+        <constructor-arg ref="paymentService"/>
+    </bean>
 <!--    <bean  id = "orderService2" class="com.example.xmlConfiguration.OrderService"/>-->
-    <bean  id = "paymentService" class="com.example.xmlConfiguration.PaymentService"/>
+<!--    <bean  id = "paymentService" class="com.example.xmlConfiguration.PaymentService"/>-->
 
 </beans>
