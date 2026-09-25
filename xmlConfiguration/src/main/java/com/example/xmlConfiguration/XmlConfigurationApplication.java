@@ -9,10 +9,11 @@ public class XmlConfigurationApplication {
 
 	public static void main(String[] args) {
 
-		ApplicationContext context = new ClassPathXmlApplicationContext("beans.xml");
+		ApplicationContext context = new ClassPathXmlApplicationContext("AppConfig.xml");
+		
 		// Get bean By id/name
-		OrderService order1 =(OrderService) context.getBean("orderService");
-		order1.placeOrder();
+//		OrderService order1 =(OrderService) context.getBean("orderService");
+//		order1.placeOrder();
 
 		// get bean By Type
 //		OrderService order = context.getBean(OrderService.class);
@@ -25,6 +26,9 @@ public class XmlConfigurationApplication {
 
 //		PaymentService payment =(PaymentService) context.getBean("paymentService");
 //		payment.pay();
+
+		UserService userService = context.getBean(UserService.class);
+		userService.getUserNames();
 
 
 	}
