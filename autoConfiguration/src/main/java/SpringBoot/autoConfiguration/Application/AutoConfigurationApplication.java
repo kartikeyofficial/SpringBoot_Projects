@@ -10,7 +10,7 @@ public class AutoConfigurationApplication {
 	public static void main(String[] args) {
 		ApplicationContext context = SpringApplication.run(AutoConfigurationApplication.class, args);
 		OrderService order = context.getBean(OrderService.class);
-		order.placeOrder();
+
 
 	}
 
