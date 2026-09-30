@@ -4,12 +4,12 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
 @Component
-@ConfigurationProperties("paymentProperty")
+@ConfigurationProperties("payment-property")
 public class PaymentProperties {
     private String type;
     private int retryCount;
-    private boolean isEnabled;
-    private int timeOut;
+    private boolean enabled;
+    private int timeout;
 
     public String getType() {
         return type;
@@ -28,18 +28,18 @@ public class PaymentProperties {
     }
 
     public boolean isEnabled() {
-        return isEnabled;
+        return enabled;
     }
 
-    public void setEnables(boolean isEnabled) {
-        isEnabled = isEnabled;
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
     }
 
     public int getTimeOut() {
-        return timeOut;
+        return timeout;
     }
 
-    public void setTimeOut(int timeOut) {
-        this.timeOut = timeOut;
+    public void setTimeOut(int timeout) {
+        this.timeout = timeout;
     }
 }

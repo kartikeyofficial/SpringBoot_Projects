@@ -8,15 +8,12 @@ import org.springframework.context.ApplicationContext;
 public class ConfiguredStructureApplication {
 
 	public static void main(String[] args) {
-		ApplicationContext context = SpringApplication.run(ConfiguredStructureApplication.class, args);
-		PaymentGateway paymentGateway = context.getBean(PaymentGateway.class);
+		SpringApplication.run(ConfiguredStructureApplication.class, args);
+//		PaymentGateway paymentGateway = context.getBean(PaymentGateway.class);
 //		paymentGateway.setType("Paytm");
 //		paymentGateway.setRetryCount(5);
 
-		System.out.println(paymentGateway.getType());
-		System.out.println(paymentGateway.getRetryCount());
-		System.out.println(paymentGateway.isEnabled());
-		System.out.println(paymentGateway.getTimeOut());
+
 
 	}
 
