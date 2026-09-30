@@ -13,8 +13,10 @@ public class ConfiguredStructureApplication {
 //		paymentGateway.setType("Paytm");
 //		paymentGateway.setRetryCount(5);
 
-//		System.out.println(paymentGateway.getType());
+		System.out.println(paymentGateway.getType());
 		System.out.println(paymentGateway.getRetryCount());
+		System.out.println(paymentGateway.isEnabled());
+		System.out.println(paymentGateway.getTimeOut());
 
 	}
 
