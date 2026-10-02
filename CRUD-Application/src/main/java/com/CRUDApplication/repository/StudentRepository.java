@@ -1,13 +1,13 @@
 package com.CRUDApplication.repository;
 
 import com.CRUDApplication.entity.Student;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 
-@Component
-public class StudentRepository {
-    public Student saveStudent(Student studentReq){
-        System.out.println("Student Repository");
-        return  null;
-    }
+@Repository
+public interface StudentRepository extends JpaRepository<Student,Long> {
+
+
 }
