@@ -51,5 +51,32 @@ public class StudentController {
 
 
     }
+    // update
+    @PutMapping("/update/{id}")
+    public ResponseEntity<Student> Update(@PathVariable Long id, @RequestBody Student studentReq){
+        Student studentResp = studentService.updateStudent(id,studentReq);
+        if (studentResp == null){
+            return ResponseEntity.notFound().build();
+        }
+
+        return ResponseEntity.ok(studentResp);
+
+    }
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<String> deleteStudent(@PathVariable Long id){
+        Boolean isDeleted = studentService.deleteStudent(id);
+
+        if(!isDeleted){
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok("Record is Deleted");
+    }
+    @DeleteMapping("/deleteAll")
+    public ResponseEntity<String> deleteAllStudents(){
+         studentService.deleteAllStudents();
+
+        return ResponseEntity.ok("All Records Are Deleted");
+    }
+
 
 }
