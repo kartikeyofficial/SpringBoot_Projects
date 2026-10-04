@@ -21,9 +21,9 @@ public class StudentController {
 
     // Create Student
     @PostMapping("/create")
-    public ResponseEntity<Student> createStudent(@RequestBody Student student){
-
-       Student createdStudent = studentService.createStudent(student);
+    public ResponseEntity<Student> createStudent(@RequestBody Student studentReq){
+        studentReq.setDeleted(false);
+       Student createdStudent = studentService.createStudent(studentReq);
 
        return ResponseEntity
                .status(HttpStatus.CREATED)
@@ -77,6 +77,14 @@ public class StudentController {
 
         return ResponseEntity.ok("All Records Are Deleted");
     }
+    @PatchMapping("/delete-soft/{id}")
+    public ResponseEntity<String> deleteStudentSoftly(@PathVariable Long id){
+        Boolean isDeleted =studentService.deleteStudentSoftly(id);
 
+        if (!isDeleted){
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok("Student data Deleted Softly Successfully");
+    }
 
 }
