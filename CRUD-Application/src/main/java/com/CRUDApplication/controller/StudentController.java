@@ -84,7 +84,7 @@ public class StudentController {
         if (!isDeleted){
             return ResponseEntity.notFound().build();
         }
-        return ResponseEntity.ok("Student data Deleted Softly Successfully");
+//        return ResponseEntity.ok("Student data Deleted Softly Successfully");
     }
 
 }
