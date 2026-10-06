@@ -64,9 +64,9 @@ public class Student {
         this.subject = subject;
     }
 
-    public Boolean getDeleted() {
-        return deleted;
-    }
+//    public Boolean getDeleted() {
+//        return deleted;
+//    }
 
     public void setDeleted(Boolean deleted) {
         this.deleted = deleted;
