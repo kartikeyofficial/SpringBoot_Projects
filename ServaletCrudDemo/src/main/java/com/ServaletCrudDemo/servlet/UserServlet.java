@@ -1,5 +1,6 @@
 package com.ServaletCrudDemo.servlet;
 
+import com.ServaletCrudDemo.Service.UserService;
 import com.ServaletCrudDemo.model.User;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -8,6 +9,8 @@ import jakarta.servlet.http.HttpServletResponse;
 
 @WebServlet("/users")
 public class UserServlet extends HttpServlet {
+
+    private UserService userService = new UserService();
 
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response){
@@ -20,6 +23,8 @@ public class UserServlet extends HttpServlet {
 
      }
      User user = new User(id,name,email,mobile);
+
+     User createdUser = userService.createUser(user);
 
     }
     @Override
