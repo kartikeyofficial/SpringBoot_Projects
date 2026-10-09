@@ -15,8 +15,8 @@ public class SummerizeController {
         this.summerizeService = summerizeService;
     }
 
-    @PostMapping("/summerize")
-    public String summerize(@RequestBody String ticket){
-        return summerizeService.summerize(ticket);
+    @PostMapping("/chat")
+    public String chat(@RequestBody String message){
+        return summerizeService.chat(message);
     }
 }
