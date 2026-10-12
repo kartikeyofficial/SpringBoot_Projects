@@ -3,6 +3,8 @@ package com.DTOsValidations.controller;
 
 import com.DTOsValidations.dto.CreateStudentRequestDTO;
 import com.DTOsValidations.dto.CreateStudentResponseDTO;
+import com.DTOsValidations.dto.UpdateStudentRequestDTO;
+import com.DTOsValidations.dto.UpdateStudentResponseDTO;
 import com.DTOsValidations.entity.Student;
 import com.DTOsValidations.service.StudentService;
 import org.springframework.http.ResponseEntity;
@@ -51,8 +53,8 @@ public class StudentController {
     }
     // update
     @PutMapping("/update/{id}")
-    public ResponseEntity<Student> Update(@PathVariable Long id, @RequestBody Student studentReq){
-        Student studentResp = studentService.updateStudent(id,studentReq);
+    public ResponseEntity<UpdateStudentResponseDTO> Update(@PathVariable Long id, @RequestBody UpdateStudentRequestDTO updateStudentRequestDTO){
+        UpdateStudentResponseDTO studentResp = studentService.updateStudent(id,updateStudentRequestDTO);
         if (studentResp == null){
             return ResponseEntity.notFound().build();
         }

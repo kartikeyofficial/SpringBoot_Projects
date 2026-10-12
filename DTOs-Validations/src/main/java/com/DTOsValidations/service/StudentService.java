@@ -3,6 +3,8 @@ package com.DTOsValidations.service;
 
 import com.DTOsValidations.dto.CreateStudentRequestDTO;
 import com.DTOsValidations.dto.CreateStudentResponseDTO;
+import com.DTOsValidations.dto.UpdateStudentRequestDTO;
+import com.DTOsValidations.dto.UpdateStudentResponseDTO;
 import com.DTOsValidations.entity.Student;
 import com.DTOsValidations.repository.StudentRepository;
 import org.springframework.stereotype.Service;
@@ -43,20 +45,21 @@ public class StudentService {
 
         return studentList;
     }
-    public Student updateStudent(Long id, Student studentReq){
+    public UpdateStudentResponseDTO updateStudent(Long id, UpdateStudentRequestDTO updateStudentRequestDTO){
         Optional<Student> existingStudent = studentRepository.findByIdAndDeletedIsFalse(id);
         if (existingStudent.isEmpty()){
             return null;
         }
         Student studentToSave = existingStudent.get();
-        studentToSave.setName(studentReq.getName());
-        studentToSave.setRollNo(studentReq.getRollNo());
-        studentToSave.setSubject(studentReq.getSubject());
-        studentToSave.setEmail(studentReq.getEmail());
-        studentToSave.setAge(studentReq.getAge());
+        studentToSave.setName(updateStudentRequestDTO.getName());
+        studentToSave.setRollNo(updateStudentRequestDTO.getRollNo());
+        studentToSave.setSubject(updateStudentRequestDTO.getSubject());
+        studentToSave.setAge(updateStudentRequestDTO.getAge());
+        studentToSave.setUpdatedAt(LocalDateTime.now());
 
-        studentToSave.setDeleted(false);
-        return studentRepository.save(studentToSave);
+        Student savedStudent = studentRepository.save(studentToSave);
+
+        return mapToUpdateDto(savedStudent);
 
 
     }
@@ -115,5 +118,19 @@ public class StudentService {
 
         return createStudentResponseDTO;
 
+    }
+    private UpdateStudentResponseDTO mapToUpdateDto(Student student){
+        UpdateStudentResponseDTO updateStudentResponseDTO = new UpdateStudentResponseDTO();
+        updateStudentResponseDTO.setId(student.getId());
+        updateStudentResponseDTO.setName(student.getName());
+        updateStudentResponseDTO.setAge(student.getAge());
+        updateStudentResponseDTO.setEmail(student.getEmail());
+        updateStudentResponseDTO.setRollNo(student.getRollNo());
+        updateStudentResponseDTO.setSubject(student.getSubject());
+        updateStudentResponseDTO.setMessage("Student Data Updated Successfully");
+        updateStudentResponseDTO.setCreatedAt(student.getCreatedAt());
+        updateStudentResponseDTO.setUpdatedAt(student.getUpdatedAt());
+
+        return updateStudentResponseDTO;
     }
 }
