@@ -1,6 +1,8 @@
 package com.DTOsValidations.service;
 
 
+import com.DTOsValidations.dto.StudentRequestDTO;
+import com.DTOsValidations.dto.StudentResponseDTO;
 import com.DTOsValidations.entity.Student;
 import com.DTOsValidations.repository.StudentRepository;
 import org.springframework.stereotype.Service;
@@ -16,9 +18,12 @@ public class StudentService {
         this.studentRepository = studentRepository;
     }
 
-    public Student createStudent(Student studentReq){
-        Student studentResp = studentRepository.save(studentReq);
-        return studentResp;
+    public StudentResponseDTO createStudent(StudentRequestDTO studentRequestDTO){
+        Student student = mapToEntity(studentRequestDTO);
+
+        Student studentResp = studentRepository.save(student);
+
+        return mapToDto(studentResp);
 
     }
     public Student getStudent(Long id){
@@ -77,5 +82,31 @@ public class StudentService {
         studentRepository.save(studentToSave);
 
         return true;
+    }
+
+    private Student mapToEntity(StudentRequestDTO studentRequestDTO){
+        Student student = new Student();
+        student.setName(studentRequestDTO.getName());
+        student.setAge(studentRequestDTO.getAge());
+        student.setEmail(studentRequestDTO.getEmail());
+        student.setRollNo(studentRequestDTO.getRollNo());
+        student.setSubject(studentRequestDTO.getSubject());
+
+        student.setDeleted(false);
+        return student;
+    }
+    private StudentResponseDTO mapToDto(Student student){
+        StudentResponseDTO studentResponseDTO = new StudentResponseDTO();
+        studentResponseDTO.setId(student.getId());
+        studentResponseDTO.setName(student.getName());
+        studentResponseDTO.setAge(student.getAge());
+        studentResponseDTO.setEmail(student.getEmail());
+        studentResponseDTO.setRollNo(student.getRollNo());
+        studentResponseDTO.setSubject(student.getSubject());
+        studentResponseDTO.setMessage("Student Saves Successfully");
+
+
+        return studentResponseDTO;
+
     }
 }

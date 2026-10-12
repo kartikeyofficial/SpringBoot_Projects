@@ -1,6 +1,8 @@
 package com.DTOsValidations.controller;
 
 
+import com.DTOsValidations.dto.StudentRequestDTO;
+import com.DTOsValidations.dto.StudentResponseDTO;
 import com.DTOsValidations.entity.Student;
 import com.DTOsValidations.service.StudentService;
 import org.springframework.http.HttpStatus;
@@ -20,13 +22,11 @@ public class StudentController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<Student> createStudent(@RequestBody Student studentReq){
-        studentReq.setDeleted(false);
-        Student createdStudent = studentService.createStudent(studentReq);
+    public ResponseEntity<StudentResponseDTO> createStudent(@RequestBody StudentRequestDTO studentRequestDTO){
+//        studentRequestDTO.setDeleted(false);
+        StudentResponseDTO createdStudent = studentService.createStudent(studentRequestDTO);
 
-        return ResponseEntity
-                .status(HttpStatus.CREATED)
-                .body(createdStudent);
+        return ResponseEntity.ok(createdStudent);
     }
 
     // Read One
