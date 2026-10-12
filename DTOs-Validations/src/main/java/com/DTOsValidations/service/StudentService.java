@@ -1,12 +1,13 @@
 package com.DTOsValidations.service;
 
 
-import com.DTOsValidations.dto.StudentRequestDTO;
-import com.DTOsValidations.dto.StudentResponseDTO;
+import com.DTOsValidations.dto.CreateStudentRequestDTO;
+import com.DTOsValidations.dto.CreateStudentResponseDTO;
 import com.DTOsValidations.entity.Student;
 import com.DTOsValidations.repository.StudentRepository;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -18,8 +19,11 @@ public class StudentService {
         this.studentRepository = studentRepository;
     }
 
-    public StudentResponseDTO createStudent(StudentRequestDTO studentRequestDTO){
-        Student student = mapToEntity(studentRequestDTO);
+    public CreateStudentResponseDTO createStudent(CreateStudentRequestDTO createStudentRequestDTO){
+        Student student = mapToEntity(createStudentRequestDTO);
+
+        student.setCreatedAt(LocalDateTime.now());
+        student.setUpdatedAt(LocalDateTime.now());
 
         Student studentResp = studentRepository.save(student);
 
@@ -84,29 +88,32 @@ public class StudentService {
         return true;
     }
 
-    private Student mapToEntity(StudentRequestDTO studentRequestDTO){
+    private Student mapToEntity(CreateStudentRequestDTO createStudentRequestDTO){
         Student student = new Student();
-        student.setName(studentRequestDTO.getName());
-        student.setAge(studentRequestDTO.getAge());
-        student.setEmail(studentRequestDTO.getEmail());
-        student.setRollNo(studentRequestDTO.getRollNo());
-        student.setSubject(studentRequestDTO.getSubject());
+        student.setName(createStudentRequestDTO.getName());
+        student.setAge(createStudentRequestDTO.getAge());
+        student.setEmail(createStudentRequestDTO.getEmail());
+        student.setRollNo(createStudentRequestDTO.getRollNo());
+        student.setSubject(createStudentRequestDTO.getSubject());
 
         student.setDeleted(false);
         return student;
     }
-    private StudentResponseDTO mapToDto(Student student){
-        StudentResponseDTO studentResponseDTO = new StudentResponseDTO();
-        studentResponseDTO.setId(student.getId());
-        studentResponseDTO.setName(student.getName());
-        studentResponseDTO.setAge(student.getAge());
-        studentResponseDTO.setEmail(student.getEmail());
-        studentResponseDTO.setRollNo(student.getRollNo());
-        studentResponseDTO.setSubject(student.getSubject());
-        studentResponseDTO.setMessage("Student Saves Successfully");
+    private CreateStudentResponseDTO mapToDto(Student student){
+        CreateStudentResponseDTO createStudentResponseDTO = new CreateStudentResponseDTO();
+        createStudentResponseDTO.setId(student.getId());
+        createStudentResponseDTO.setName(student.getName());
+        createStudentResponseDTO.setAge(student.getAge());
+        createStudentResponseDTO.setEmail(student.getEmail());
+        createStudentResponseDTO.setRollNo(student.getRollNo());
+        createStudentResponseDTO.setSubject(student.getSubject());
+        createStudentResponseDTO.setMessage("Student Saves Successfully");
+
+        createStudentResponseDTO.setCreatedAt(student.getCreatedAt());
+        createStudentResponseDTO.setUpdatedAt(student.getUpdatedAt());
 
 
-        return studentResponseDTO;
+        return createStudentResponseDTO;
 
     }
 }

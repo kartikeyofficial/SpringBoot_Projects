@@ -1,11 +1,10 @@
 package com.DTOsValidations.controller;
 
 
-import com.DTOsValidations.dto.StudentRequestDTO;
-import com.DTOsValidations.dto.StudentResponseDTO;
+import com.DTOsValidations.dto.CreateStudentRequestDTO;
+import com.DTOsValidations.dto.CreateStudentResponseDTO;
 import com.DTOsValidations.entity.Student;
 import com.DTOsValidations.service.StudentService;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,9 +21,9 @@ public class StudentController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<StudentResponseDTO> createStudent(@RequestBody StudentRequestDTO studentRequestDTO){
+    public ResponseEntity<CreateStudentResponseDTO> createStudent(@RequestBody CreateStudentRequestDTO createStudentRequestDTO){
 //        studentRequestDTO.setDeleted(false);
-        StudentResponseDTO createdStudent = studentService.createStudent(studentRequestDTO);
+        CreateStudentResponseDTO createdStudent = studentService.createStudent(createStudentRequestDTO);
 
         return ResponseEntity.ok(createdStudent);
     }
