@@ -1,5 +1,7 @@
 package com.AiIntegeration;
 
+import com.AiIntegeration.aitools.CalculatorTool;
+import com.AiIntegeration.aitools.WeatherTool;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.chat.messages.AssistantMessage;
 import org.springframework.ai.chat.messages.Message;
@@ -13,40 +15,49 @@ import java.util.List;
 public class SummerizeService {
 
     private ChatClient chatClient;
+    private CalculatorTool calculatorTool;
+    private WeatherTool weatherTool;
     private List<Message> history = new ArrayList<>();
 
+    public SummerizeService(ChatClient.Builder builder,
+                            CalculatorTool calculatorTool,
+                            WeatherTool weatherTool)
+    {
+        this.chatClient = builder.build();
+        this.calculatorTool = calculatorTool;
+        this.weatherTool = weatherTool;
+
+    }
+
+
     private final String SYSTEM_PROMPT = """
-                You Are a Customer Support executive of our food delivery application called Tomato. 
-                Respond to Our Customers query professionally.
-                If user is furious, or angry or have any issue use words like I Understand your Concern, 
-                or I am Sorry you have to through this and so on. 
-                Then solve customer query and give a response. 
+                You are a helpful AI assistant with access to external tools.
+                follow these rules:
                 
-                Always response not more than 2 lines.  
-                
-                Do not Response to any other message which is not related to ordering Food query, 
-                refund query, order tracking status query status query or company policy query.
-                If below message ask an other information other then food 
-                delivery just respond this is beyond my capabilities
+               1. For arithmetic calculations , Always Use calculator tool.
+               2. Always use calculator tool for even trivial calculation.
+               3. for current weather, Always use the currentWeather tool.
+               4. for currency conversion or exchange rate, Always use the covertCurrencyTool.
+               5. You may call multiply tool when solving a multi-step request.
+               6. After receiving tool results, then explain the answer human language naturally.
+               7. Never invent current weather or exchange-rate information.
                 """;
 
-    public SummerizeService(ChatClient.Builder builder) {
-        this.chatClient = builder.build();
-    }
 
     public String chat(String message){
 
 
         history.add(new UserMessage(message));
-        String output = chatClient.prompt()
+        String response = chatClient.prompt()
                 .system(SYSTEM_PROMPT)
                 .messages(history)
+                .tools(calculatorTool,weatherTool)
                 .call()
                 .content();
 
-        history.add(new AssistantMessage(output));
+        history.add(new AssistantMessage(response));
 
-        return output;
+        return response;
     }
 }
 
