@@ -57,7 +57,7 @@ public class SummerizeService {
 
         history.add(new AssistantMessage(response));
 
-//        return response;
+        return response;
     }
 }
 
