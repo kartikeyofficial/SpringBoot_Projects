@@ -23,7 +23,7 @@ public class StudentController {
         this.studentService = studentService;
     }
 
-    @PostMapping("/create")
+    @PostMapping
     public ResponseEntity<CreateStudentResponseDTO> createStudent(@Valid @RequestBody CreateStudentRequestDTO createStudentRequestDTO){
 //        studentRequestDTO.setDeleted(false);
         CreateStudentResponseDTO createdStudent = studentService.createStudent(createStudentRequestDTO);
@@ -32,7 +32,7 @@ public class StudentController {
     }
 
     // Read One
-    @GetMapping("/get/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<CreateStudentResponseDTO> getStudent(@PathVariable Long id){
         CreateStudentResponseDTO studentResp = studentService.getStudent(id);
         if (studentResp == null){
@@ -42,7 +42,7 @@ public class StudentController {
         return ResponseEntity.ok(studentResp);
 
     }
-    @GetMapping("/getAll")
+    @GetMapping
     public ResponseEntity<List<CreateStudentResponseDTO>> getAllStudent(){
         List<CreateStudentResponseDTO> studentsList = studentService.getAllStudent();
         if (studentsList.isEmpty()){
@@ -53,7 +53,7 @@ public class StudentController {
 
     }
     // update
-    @PutMapping("/update/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<UpdateStudentResponseDTO> Update(@PathVariable Long id,@Valid @RequestBody UpdateStudentRequestDTO updateStudentRequestDTO){
         UpdateStudentResponseDTO studentResp = studentService.updateStudent(id,updateStudentRequestDTO);
         if (studentResp == null){
@@ -63,7 +63,7 @@ public class StudentController {
         return ResponseEntity.ok(studentResp);
 
     }
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteStudent(@PathVariable Long id){
         Boolean isDeleted = studentService.deleteStudent(id);
 
@@ -72,7 +72,7 @@ public class StudentController {
         }
         return ResponseEntity.ok("Record is Deleted");
     }
-    @DeleteMapping("/deleteAll")
+    @DeleteMapping
     public ResponseEntity<String> deleteAllStudents(){
         studentService.deleteAllStudents();
 
