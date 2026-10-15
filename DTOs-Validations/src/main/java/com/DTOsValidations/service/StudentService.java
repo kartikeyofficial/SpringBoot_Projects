@@ -32,18 +32,21 @@ public class StudentService {
         return mapToDto(studentResp);
 
     }
-    public Student getStudent(Long id){
+    public CreateStudentResponseDTO getStudent(Long id){
         Optional<Student> studentResp = studentRepository.findByIdAndDeletedIsFalse(id);
         if (studentResp.isPresent()){
-            return studentResp.get();
+            return mapToDto(studentResp.get());
         }
         return null;
     }
 
-    public List<Student> getAllStudent(){
+    public List<CreateStudentResponseDTO> getAllStudent(){
         List<Student> studentList = studentRepository.findByDeletedIsFalse();
 
-        return studentList;
+
+        return studentList.stream()
+                .map(this::mapToDto)
+                .toList();
     }
     public UpdateStudentResponseDTO updateStudent(Long id, UpdateStudentRequestDTO updateStudentRequestDTO){
         Optional<Student> existingStudent = studentRepository.findByIdAndDeletedIsFalse(id);

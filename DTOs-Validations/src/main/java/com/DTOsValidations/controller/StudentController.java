@@ -7,6 +7,7 @@ import com.DTOsValidations.dto.UpdateStudentRequestDTO;
 import com.DTOsValidations.dto.UpdateStudentResponseDTO;
 import com.DTOsValidations.entity.Student;
 import com.DTOsValidations.service.StudentService;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,7 +24,7 @@ public class StudentController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<CreateStudentResponseDTO> createStudent(@RequestBody CreateStudentRequestDTO createStudentRequestDTO){
+    public ResponseEntity<CreateStudentResponseDTO> createStudent(@Valid @RequestBody CreateStudentRequestDTO createStudentRequestDTO){
 //        studentRequestDTO.setDeleted(false);
         CreateStudentResponseDTO createdStudent = studentService.createStudent(createStudentRequestDTO);
 
@@ -32,8 +33,8 @@ public class StudentController {
 
     // Read One
     @GetMapping("/get/{id}")
-    public ResponseEntity<Student> getStudent(@PathVariable Long id){
-        Student studentResp = studentService.getStudent(id);
+    public ResponseEntity<CreateStudentResponseDTO> getStudent(@PathVariable Long id){
+        CreateStudentResponseDTO studentResp = studentService.getStudent(id);
         if (studentResp == null){
             return ResponseEntity.notFound().build();
         }
@@ -42,8 +43,8 @@ public class StudentController {
 
     }
     @GetMapping("/getAll")
-    public ResponseEntity<List<Student>> getAllStudent(){
-        List<Student> studentsList = studentService.getAllStudent();
+    public ResponseEntity<List<CreateStudentResponseDTO>> getAllStudent(){
+        List<CreateStudentResponseDTO> studentsList = studentService.getAllStudent();
         if (studentsList.isEmpty()){
             return ResponseEntity.notFound().build();
         }
@@ -53,7 +54,7 @@ public class StudentController {
     }
     // update
     @PutMapping("/update/{id}")
-    public ResponseEntity<UpdateStudentResponseDTO> Update(@PathVariable Long id, @RequestBody UpdateStudentRequestDTO updateStudentRequestDTO){
+    public ResponseEntity<UpdateStudentResponseDTO> Update(@PathVariable Long id,@Valid @RequestBody UpdateStudentRequestDTO updateStudentRequestDTO){
         UpdateStudentResponseDTO studentResp = studentService.updateStudent(id,updateStudentRequestDTO);
         if (studentResp == null){
             return ResponseEntity.notFound().build();
