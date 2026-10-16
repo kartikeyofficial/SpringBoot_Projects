@@ -5,7 +5,6 @@ import com.DTOsValidations.dto.CreateStudentRequestDTO;
 import com.DTOsValidations.dto.CreateStudentResponseDTO;
 import com.DTOsValidations.dto.UpdateStudentRequestDTO;
 import com.DTOsValidations.dto.UpdateStudentResponseDTO;
-import com.DTOsValidations.entity.Student;
 import com.DTOsValidations.service.StudentService;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
@@ -25,7 +24,6 @@ public class StudentController {
 
     @PostMapping
     public ResponseEntity<CreateStudentResponseDTO> createStudent(@Valid @RequestBody CreateStudentRequestDTO createStudentRequestDTO){
-//        studentRequestDTO.setDeleted(false);
         CreateStudentResponseDTO createdStudent = studentService.createStudent(createStudentRequestDTO);
 
         return ResponseEntity.ok(createdStudent);
@@ -35,9 +33,6 @@ public class StudentController {
     @GetMapping("/{id}")
     public ResponseEntity<CreateStudentResponseDTO> getStudent(@PathVariable Long id){
         CreateStudentResponseDTO studentResp = studentService.getStudent(id);
-        if (studentResp == null){
-            return ResponseEntity.notFound().build();
-        }
 
         return ResponseEntity.ok(studentResp);
 
@@ -45,9 +40,7 @@ public class StudentController {
     @GetMapping
     public ResponseEntity<List<CreateStudentResponseDTO>> getAllStudent(){
         List<CreateStudentResponseDTO> studentsList = studentService.getAllStudent();
-        if (studentsList.isEmpty()){
-            return ResponseEntity.notFound().build();
-        }
+
         return ResponseEntity.ok(studentsList);
 
 
@@ -56,21 +49,19 @@ public class StudentController {
     @PutMapping("/{id}")
     public ResponseEntity<UpdateStudentResponseDTO> Update(@PathVariable Long id,@Valid @RequestBody UpdateStudentRequestDTO updateStudentRequestDTO){
         UpdateStudentResponseDTO studentResp = studentService.updateStudent(id,updateStudentRequestDTO);
-        if (studentResp == null){
-            return ResponseEntity.notFound().build();
-        }
+
 
         return ResponseEntity.ok(studentResp);
 
     }
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteStudent(@PathVariable Long id){
-        Boolean isDeleted = studentService.deleteStudent(id);
+        studentService.deleteStudent(id);
 
-        if(!isDeleted){
-            return ResponseEntity.notFound().build();
-        }
-        return ResponseEntity.ok("Record is Deleted");
+
+        return ResponseEntity
+                .noContent()
+                .build();
     }
     @DeleteMapping
     public ResponseEntity<String> deleteAllStudents(){
@@ -80,11 +71,10 @@ public class StudentController {
     }
     @PatchMapping("/delete-soft/{id}")
     public ResponseEntity<String> deleteStudentSoftly(@PathVariable Long id){
-        Boolean isDeleted = studentService.deleteStudentSoftly(id);
+       studentService.deleteStudentSoftly(id);
 
-        if (!isDeleted){
-            return ResponseEntity.notFound().build();
-        }
-        return ResponseEntity.ok("Student data Deleted Softly Successfully");
+        return ResponseEntity
+                .noContent()
+                .build();
     }
 }
