@@ -1,6 +1,7 @@
 package com.AiIntegeration;
 
 import org.springframework.web.bind.annotation.*;
+import reactor.core.publisher.Flux;
 
 
 @CrossOrigin(origins = "*")
@@ -15,7 +16,7 @@ public class SummerizeController {
     }
 
     @PostMapping("/chat")
-    public String chat(@RequestBody String message){
+    public Flux<String> chat(@RequestBody String message){
         return summerizeService.chat(message);
     }
 }
