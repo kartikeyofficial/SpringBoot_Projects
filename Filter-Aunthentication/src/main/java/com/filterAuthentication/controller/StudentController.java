@@ -1,8 +1,11 @@
 package com.filterAuthentication.controller;
 
+import com.filterAuthentication.dto.Student;
 import com.filterAuthentication.service.StudentService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -16,8 +19,11 @@ public class StudentController {
     }
 
     @PostMapping
-    public ResponseEntity<String> createStudent(){
-        studentService.createStudent();
-       return ResponseEntity.ok("DONE");
+    public ResponseEntity<Student> createStudent(@RequestBody Student studentReq){
+       Student createdStudent =  studentService.createStudent(studentReq);
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .body(createdStudent);
+
     }
 }
