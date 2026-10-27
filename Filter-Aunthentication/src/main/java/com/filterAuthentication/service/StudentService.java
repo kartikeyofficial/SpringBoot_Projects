@@ -1,6 +1,7 @@
 package com.filterAuthentication.service;
 
 import com.filterAuthentication.dto.Student;
+import com.filterAuthentication.dto.StudentResponseDto;
 import com.filterAuthentication.repository.StudentRepository;
 import org.springframework.stereotype.Service;
 
