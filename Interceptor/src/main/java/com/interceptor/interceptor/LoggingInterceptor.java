@@ -9,7 +9,7 @@ import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
-@Component
+//@Component
 public class LoggingInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request,
@@ -23,6 +23,15 @@ public class LoggingInterceptor implements HandlerInterceptor {
         System.out.println("PreHandler called");
         System.out.println("Controller Name: "+controllerName);
         System.out.println("Method Name: "+methodName);
+        System.out.println("Query String: "+request.getQueryString());
+        System.out.println("client Ip: "+request.getRemoteAddr());
+        System.out.println("Token Header: "+request.getHeader("token"));
+
+        if (handler instanceof HandlerMethod handlerMethod){
+            System.out.println("controller: "+handlerMethod.getBeanType().getName());
+            System.out.println("Controller Method: "+handlerMethod.getMethod().getName());
+        }
+
         return true;
     }
 
@@ -40,6 +49,6 @@ public class LoggingInterceptor implements HandlerInterceptor {
                                 HttpServletResponse response,
                                 Object handler, Exception ex) throws Exception {
 
-        System.out.println("AfterCompletion Called");
+        System.out.println("Response Status: "+response.getStatus());
     }
 }

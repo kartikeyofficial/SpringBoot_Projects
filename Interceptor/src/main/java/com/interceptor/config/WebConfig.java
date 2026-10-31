@@ -1,5 +1,6 @@
 package com.interceptor.config;
 
+import com.interceptor.interceptor.AuthenticationInterceptor;
 import com.interceptor.interceptor.LoggingInterceptor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistration;
@@ -8,15 +9,19 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
-    public LoggingInterceptor loggingInterceptor;
+//    public LoggingInterceptor loggingInterceptor;
+    public AuthenticationInterceptor authenticationInterceptor;
 
-    public WebConfig(LoggingInterceptor interceptor){
-        this.loggingInterceptor = interceptor;
-
+//    public WebConfig(LoggingInterceptor interceptor){
+//        this.loggingInterceptor = interceptor;
+//
+//    }
+    public WebConfig(AuthenticationInterceptor authenticationInterceptor){
+        this.authenticationInterceptor = authenticationInterceptor;
     }
     @Override
     public void addInterceptors(InterceptorRegistry registry){
-        registry.addInterceptor(loggingInterceptor);
+        registry.addInterceptor(authenticationInterceptor);
     }
 
 }
