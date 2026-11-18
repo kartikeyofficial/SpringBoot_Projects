@@ -5,5 +5,8 @@ public class LoggingServiceUtil {
         System.out.println("Executive-> "+className+" : "+methodName);
 
     }
+    public static void logEnd(String className, String methodName){
+        System.out.println("Finishing -> "+className+" : "+methodName);
+    }
 
 }
