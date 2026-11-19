@@ -6,7 +6,7 @@ public class LoggingServiceUtil {
 
     }
     public static void logEnd(String className, String methodName){
-//        System.out.println("Finishing -> "+className+" : "+methodName);
+        System.out.println("Finishing -> "+className+" : "+methodName);
     }
 
 }
