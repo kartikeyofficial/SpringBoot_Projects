@@ -11,9 +11,8 @@ import org.springframework.stereotype.Component;
 public class LoggingAspect {
 // Advice
     @AfterReturning(
-            value = "execution(com.AOP.entity.Student " +
-                    "com.AOP.service.StudentService." +
-                    "createStudent(com.AOP.entity.Student))",
+            value = "execution(* com.AOP.service.StudentService." +
+                    "createStudent(..))",
             returning = "result")
     public void logBeforeMethod(Student result){
 
